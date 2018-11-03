@@ -116,8 +116,7 @@ public class MainActivity extends AppCompatActivity implements
             guids.add(data.getString(data.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_PLACE_ID)));
         }
 
-        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById((mClient,
-                guids.toArray(new String[guids.size()])));
+        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mClient, guids.toArray(new String[guids.size()]));
         placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
             @Override
             public void onResult(@NonNull PlaceBuffer places) {
