@@ -23,18 +23,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.location.places.PlaceBuffer;
+
 public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.PlaceViewHolder> {
 
     private Context mContext;
+    private PlaceBuffer mPlaces;
 
     /**
      * Constructor using the context and the db cursor
      *
      * @param context the calling context/activity
      */
-    public PlaceListAdapter(Context context) {
-        // TODO (4) Take a PlaceBuffer as an input and store it as a local private member mPlaces
+    public PlaceListAdapter(Context context, PlaceBuffer placeBuffer) {
+        // DONE (4) Take a PlaceBuffer as an input and store it as a local private member mPlaces
         this.mContext = context;
+        this.mPlaces = placeBuffer;
     }
 
     /**
@@ -73,8 +77,8 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
      */
     @Override
     public int getItemCount() {
-        // TODO (5) Update getItemCount to return mPlaces's item count
-        return 0;
+        // DONE (5) Update getItemCount to return mPlaces's item count
+        return mPlaces.getCount();
     }
 
     /**

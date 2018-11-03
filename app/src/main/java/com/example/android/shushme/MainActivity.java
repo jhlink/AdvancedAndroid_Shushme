@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements
         // Set up the recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.places_list_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // TODO (3) Modify the Adapter to take a PlaceBuffer in the constructor
+        // DONE (3) Modify the Adapter to take a PlaceBuffer in the constructor
         mAdapter = new PlaceListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
