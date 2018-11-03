@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements
 
     // Constants
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final int PERMISSION_REQUEST_CODE = 111;
 
     // Member variables
     private PlaceListAdapter mAdapter;
@@ -103,8 +105,15 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    // DONE (8) Implement onLocationPermissionClicked to handle the CheckBox click event
+    public void onLocationPermissionClicked(View view) {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.location_checkbox);
+        if (checkBox.isChecked()) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
+        }
 
-    // TODO (8) Implement onLocationPermissionClicked to handle the CheckBox click event
+    }
+
     // TODO (9) Implement the Add Place Button click event to show  a toast message with the permission status
 
 }
