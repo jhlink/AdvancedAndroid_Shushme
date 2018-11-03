@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements
         placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
             @Override
             public void onResult(@NonNull PlaceBuffer places) {
+                //DONE (8) Set the getPlaceById callBack so that onResult calls the Adapter's swapPlaces with the result
                 mAdapter.swapPlaces(places);
             }
         });
@@ -128,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    //TODO (8) Set the getPlaceById callBack so that onResult calls the Adapter's swapPlaces with the result
 
     //DONE (2) call refreshPlacesData in GoogleApiClient's onConnected and in the Add New Place button click event
 
