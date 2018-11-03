@@ -2,6 +2,7 @@ package com.example.android.shushme;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.Geofence;
@@ -52,5 +53,17 @@ public class Geofencing {
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
         builder.addGeofences(mGeofenceList);
         return builder.build();
+    }
+
+    private PendingIntent getGeofencePendingIntent() {
+        if ( mGeofencePendingIntent != null ) {
+            return mGeofencePendingIntent;
+        }
+
+        Intent intent = new Intent( mContext, GeofenceBroadcastReceiver.class);
+        mGeofencePendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        return mGeofencePendingIntent;
+
     }
 }
