@@ -16,13 +16,16 @@ package com.example.android.shushme;
  * limitations under the License.
  */
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.location.Geofence;
@@ -65,8 +68,25 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         }
 
 
-        // TODO (6) Show a notification to alert the user that the ringer mode has changed.
+        // DONE (6) Show a notification to alert the user that the ringer mode has changed.
         // Feel free to create a helper method (sendNotification)
+        sendNotification(context, geofenceTransition);
+
+    }
+
+    private void sendNotification(Context context, int transitionType) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER) {
+            builder.setSmallIcon(R.drawable.ic_volume_off_white_24dp)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                            R.drawable.ic_volume_off_white_24dp))
+                    .setContentTitle(context.getString(R.string.silent_mode_activated));
+        } else if ( transitionType == Geofence.GEOFENCE_TRANSITION_EXIT) {
+            builder.setSmallIcon(R.drawable.ic_volume_up_white_24dp)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                            R.drawable.ic_volume_up_white_24dp))
+                    .setContentTitle(context.getString(R.string.back_to_normal));
+        }
 
     }
 
