@@ -74,19 +74,34 @@ public class Geofencing implements ResultCallback {
     }
 
     public void registerAllGeofences() {
-       if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
-           return;
-       }
+        if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
+            return;
+        }
 
-       try {
-           LocationServices.GeofencingApi.addGeofences(
-                   mGoogleApiClient,
-                   getGeofencingRequest(),
-                   getGeofencePendingIntent()
-           ).setResultCallback(this);
-       } catch (SecurityException securityException) {
-           Log.e(TAG, securityException.getMessage());
-       }
+        try {
+            LocationServices.GeofencingApi.addGeofences(
+                    mGoogleApiClient,
+                    getGeofencingRequest(),
+                    getGeofencePendingIntent()
+            ).setResultCallback(this);
+        } catch (SecurityException securityException) {
+            Log.e(TAG, securityException.getMessage());
+        }
+    }
+
+    public void unRegisterAllGeofences() {
+        if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
+            return;
+        }
+
+        try {
+            LocationServices.GeofencingApi.removeGeofences(
+                    mGoogleApiClient,
+                    getGeofencePendingIntent()
+            ).setResultCallback(this);
+        } catch (SecurityException securityException) {
+            Log.e(TAG, securityException.getMessage());
+        }
     }
 
     @Override
