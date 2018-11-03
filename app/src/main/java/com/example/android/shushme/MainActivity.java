@@ -107,8 +107,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     // DONE (8) Implement onLocationPermissionClicked to handle the CheckBox click event
-    public void onLocationPermissionClicked(View view, boolean isChecked) {
-        if (isChecked) {
+    public void onLocationPermissionClicked(View view) {
+        CheckBox checkBox = (CheckBox) view;
+        if (checkBox.isChecked()) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
         }
 
