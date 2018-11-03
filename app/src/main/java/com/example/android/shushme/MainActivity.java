@@ -16,12 +16,14 @@ package com.example.android.shushme;
 * limitations under the License.
 */
 
+import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -247,7 +249,17 @@ public class MainActivity extends AppCompatActivity implements
             locationPermissions.setEnabled(false);
         }
 
-        //TODO (3) Initialize ringer permissions checkbox
+        //DONE (3) Initialize ringer permissions checkbox
+        CheckBox ringerPermissions = (CheckBox) findViewById(R.id.ringer_mode_permissions_checkbox);
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 24 && !nm.isNotificationPolicyAccessGranted()) {
+            ringerPermissions.setChecked(false);
+        } else {
+            ringerPermissions.setChecked(true);
+            ringerPermissions.setEnabled(false);
+        }
+
     }
 
     // DONE (2) Implement onRingerPermissionsClicked to launch ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS
