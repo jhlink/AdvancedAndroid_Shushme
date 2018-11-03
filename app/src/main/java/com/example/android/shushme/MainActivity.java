@@ -37,6 +37,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
@@ -143,7 +144,21 @@ public class MainActivity extends AppCompatActivity implements
         Toast.makeText(this, getString(R.string.location_permissions_granted_message), Toast.LENGTH_LONG).show();
     }
 
-    // TODO (3) Implement onActivityResult and check that the requestCode is PLACE_PICKER_REQUEST
+    // DONE (3) Implement onActivityResult and check that the requestCode is PLACE_PICKER_REQUEST
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ( requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK) {
+            Place place = PlacePicker.getPlace(this, data);
+            if ( place == null ) {
+                Log.i(TAG, "No place selected");
+                return;
+            }
+        }
+
+    }
+
     // TODO (4) In onActivityResult, use PlacePicker.getPlace to extract the Place ID and insert it into the DB
 
     @Override
