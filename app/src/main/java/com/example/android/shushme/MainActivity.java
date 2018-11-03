@@ -130,19 +130,19 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
         // DONE (1) Create a PlacePicker.IntentBuilder and call startActivityForResult
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-        Intent i = null;
-
         // DONE (2) Handle GooglePlayServices exceptions
         try {
-            i = builder.build(this);
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            Intent i = builder.build(this);
+            startActivityForResult(i, PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
+            Log.e(TAG, String.format("GooglePlayServices Not Available [%s]", e.getMessage()));
         } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
+            Log.e(TAG, String.format("GooglePlayServices Not Available [%s]", e.getMessage()));
+        } catch (Exception e) {
+            Log.e(TAG, String.format("PlacePicker Exception: %s", e.getMessage()));
         }
 
-        startActivityForResult(i, PLACE_PICKER_REQUEST);
 
         Toast.makeText(this, getString(R.string.location_permissions_granted_message), Toast.LENGTH_LONG).show();
     }
