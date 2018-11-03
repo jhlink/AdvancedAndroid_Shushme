@@ -3,16 +3,22 @@ package com.example.android.shushme;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 
 import java.util.ArrayList;
 
-public class Geofencing {
+public class Geofencing implements ResultCallback {
+    private static final String TAG = Geofencing.class.getSimpleName();
     private static final int GEOFENCE_TIMEOUT = 3600;
     private static final float GEOFENCE_RADIUS = 1.0f;
 
@@ -65,5 +71,27 @@ public class Geofencing {
 
         return mGeofencePendingIntent;
 
+    }
+
+    public void registerAllGeofences() {
+       if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
+           return;
+       }
+
+       try {
+           LocationServices.GeofencingApi.addGeofences(
+                   mGoogleApiClient,
+                   getGeofencingRequest(),
+                   getGeofencePendingIntent()
+           ).setResultCallback(this);
+       } catch (SecurityException securityException) {
+           Log.e(TAG, securityException.getMessage());
+       }
+    }
+
+    @Override
+    public void onResult(@NonNull Result result) {
+        Log.e(TAG, String.format("Error, adding/removing geofence : %s",
+                result.getStatus().toString()));
     }
 }
