@@ -14,7 +14,7 @@ public class Geofencing {
     private Context mContext;
     private ArrayList<Geofence> mGeofenceList;
 
-    public Geofencing(˜Context context, GoogleApiClient client) {
+    public Geofencing(Context context, GoogleApiClient client) {
         this.mContext = context;
         this.mGoogleApiClient = client;
 
